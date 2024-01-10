@@ -1,14 +1,21 @@
 import requests
 
-url = "http://5.63.153.31:5051/v1/account/login"
 
-payload = {}
-headers = {
-  'X-Dm-Auth-Token': '<string>',
-  'X-Dm-Bb-Render-Mode': '<string>',
-  'Accept': 'text/plain'
-}
+def del_v1_account_login():
+    """"
+    Logout as current user
+    :return:
+    """
+    url = "http://5.63.153.31:5051/v1/account/login"
 
-response = requests.request("DELETE", url, headers=headers, data=payload)
+    headers = {
+        'X-Dm-Auth-Token': '<string>',
+        'X-Dm-Bb-Render-Mode': '<string>',
+        'Accept': 'text/plain'
+    }
 
-print(response.text)
+    response = requests.request(
+        method="DELETE",
+        url=url,
+        headers=headers
+    )
