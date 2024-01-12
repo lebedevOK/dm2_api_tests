@@ -11,7 +11,10 @@ class AccountApi:
     def __init__(self, host, headers=None):
         self.host = host
         self.session = session()
-        self.session.headers = headers
+        if headers:
+            self.session.headers.update(headers)
+        #self.session.headers.update(headers) if headers else None
+
 
     def post_v1_account(self, json: RegistrationModel, **kwargs) -> Response:
         """"
@@ -22,8 +25,8 @@ class AccountApi:
 
         response = self.session.post(
             url=f"{self.host}/v1/account",
-            json=json
-                 ** kwargs
+            json=json,
+            ** kwargs
         )
         return response
 
@@ -39,13 +42,11 @@ class AccountApi:
         )
         return response
 
-    def put_v1_account_token(self, **kwargs):
+    def put_v1_account_token(self, token, **kwargs):
         """"
         Activate registered user
         :return:
         """
-        token = "ec7ff754-1883-4d7b-95f4-54da07db2ed7"
-
         response = self.session.put(
             url=f"{self.host}/v1/account/{token}",
             **kwargs
